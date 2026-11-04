@@ -4,13 +4,9 @@ from typing import List
 
 def path_to_file_list(path: str) -> List[str]:
     """Reads a file and returns a list of lines in the file"""
-# <<<<<<< HEAD
-#     # Will this be working?
-#     lines = open(path, 'r').read().split('\n')
-# =======
-    # implemented as a one-liner
-    lines = open(path, 'w').split('\n')
-# >>>>>>> 061269e (path_to_file_list implemented)
+    with open(path, 'r', encoding='utf-8') as f:
+        lines = f.read().splitlines()
+
     return lines
 
 def train_file_list_to_json(english_file_list: List[str], german_file_list: List[str]) -> List[str]:
@@ -19,7 +15,7 @@ def train_file_list_to_json(english_file_list: List[str], german_file_list: List
     def process_file(file):
         if '\\' in file:
             file = file.replace('\\', '\\\\')
-        if '/' or '"' in file:
+        if '/' in file or '"' in file:
             file = file.replace('/', '\\/')
             file = file.replace('"', '\\"')
         return file
